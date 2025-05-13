@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { colors } from "../../../styles/base";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import InstruccionOperacion from "./InstruccionOperacion";
 
 export default PaginaTaquillas = ({ route }) => {
+  const [accion, setAccion] = useState();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const persona = route.params.persona;
@@ -50,13 +52,20 @@ export default PaginaTaquillas = ({ route }) => {
         </View>
       </View>
       <View style={styles.contenedorOperacion}>
-        <TouchableOpacity style={styles.botonOperacion}>
+        <TouchableOpacity
+          style={styles.botonOperacion}
+          onPress={setAccion("dejar")}
+        >
           <Text style={styles.textoOperacion}>Dejar Llave</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.botonOperacion}>
+        <TouchableOpacity
+          style={styles.botonOperacion}
+          onPress={setAccion("recoger")}
+        >
           <Text style={styles.textoOperacion}>Recoger Llave</Text>
         </TouchableOpacity>
       </View>
+      {accion && <InstruccionOperacion />}
     </View>
   );
 };
