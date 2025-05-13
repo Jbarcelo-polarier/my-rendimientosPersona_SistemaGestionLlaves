@@ -12,28 +12,10 @@ const index = () => {
     navigation.navigate("Rendimiento");
   };
 
-  const openVideos = () => {
-    navigation.navigate("Videos");
-  };
-  const openCanjes = () => {
-    navigation.navigate("Canjes");
-  };
-
   return (
     <View style={{ paddingTop: insets.top + 1 }}>
       <View style={styles.navigationBar}>
         <Text style={styles.headerText}>MyApp</Text>
-      </View>
-      <View style={estilos.contenido}>
-        <TouchableOpacity onPress={openRendimiento} style={estilos.carta}>
-          <Text>myRendimiento</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={openVideos} style={estilos.carta}>
-          <Text>myVideos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={openCanjes} style={estilos.carta}>
-          <Text>myPuntos</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
