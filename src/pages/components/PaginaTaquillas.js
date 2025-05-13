@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { colors } from "../../../styles/base";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -13,9 +13,18 @@ export default PaginaTaquillas = ({ route }) => {
   const persona = route.params.persona;
   const vehiculo = route.params.vehiculo;
 
+  useEffect(() => {
+    if (accion === "dejar") {
+    }
+    if (accion === "recoger") {
+    }
+  }, [accion]);
+
   const elegirAccion = (valor) => {
-    console.log("valor", valor);
-    setAccion(valor);
+    if (!accion) {
+      console.log("valor", valor);
+      setAccion(valor);
+    }
   };
 
   return (
@@ -73,7 +82,7 @@ export default PaginaTaquillas = ({ route }) => {
           <Text style={styles.textoOperacion}>Recoger Llave</Text>
         </TouchableOpacity>
       </View>
-      <InstruccionOperacion />
+      {(accion == "dejar" || accion == "recoger") && <InstruccionOperacion />}
     </View>
   );
 };
