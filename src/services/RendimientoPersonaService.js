@@ -6,32 +6,51 @@ import {
 } from "../helpers/connection";
 
 export const rendimientoPersonasService = {
-  getTokensPersona,
+  getVehiculoPorMatricula,
+  getPersonaPorDNI,
 };
 
-function getTokensPersona(idPersona, fechaIni, fechaFin) {
+function getPersonaPorDNI(numIdentificacion) {
   console.log(
     connectionConstants.ODATA_URL +
-      "getTokensPersona" +
-      "?idPersona=" +
-      idPersona +
-      "&fechaIni=" +
-      fechaIni +
-      "&fechaFin=" +
-      fechaFin,
+      "getPersonaPorDNI" +
+      "?numIdentificacion=" +
+      numIdentificacion,
     requestOptions("GET")
   );
-
   return new Promise((resolve, reject) => {
     fetch(
       connectionConstants.ODATA_URL +
-        "getTokensPersona" +
-        "?idPersona=" +
-        idPersona +
-        "&fechaIni=" +
-        fechaIni +
-        "&fechaFin=" +
-        fechaFin,
+        "getPersonaPorDNI" +
+        "?numIdentificacion='" +
+        numIdentificacion +
+        "'",
+      requestOptions("GET")
+    )
+      .then(handleResponse)
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((ex) => {
+        reject(ex);
+      });
+  });
+}
+
+function getVehiculoPorMatricula(numMatricula) {
+  // console.log(
+  //   connectionConstants.ODATA_URL +
+  //     "getVehiculoPorMatricula" +
+  //     "?numMatricula=" +
+  //     numMatricula,
+  //   requestOptions("GET")
+  // );
+  return new Promise((resolve, reject) => {
+    fetch(
+      connectionConstants.ODATA_URL +
+        "getVehiculoPorMatricula" +
+        "?numMatricula=" +
+        numMatricula,
       requestOptions("GET")
     )
       .then(handleResponse)

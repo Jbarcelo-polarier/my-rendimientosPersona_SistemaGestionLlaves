@@ -3,6 +3,7 @@ import styles from "../../styles/rendimiento";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { colors } from "../../styles/base";
+import Identificador from "./components/Identificador";
 
 const index = () => {
   const insets = useSafeAreaInsets();
@@ -15,8 +16,9 @@ const index = () => {
   return (
     <View style={{ paddingTop: insets.top + 1 }}>
       <View style={styles.navigationBar}>
-        <Text style={styles.headerText}>MyApp</Text>
+        <Text style={styles.headerText}>Taquillas</Text>
       </View>
+      <Identificador />
     </View>
   );
 };
