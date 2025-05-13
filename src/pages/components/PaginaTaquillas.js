@@ -12,7 +12,11 @@ export default PaginaTaquillas = ({ route }) => {
   const navigation = useNavigation();
   const persona = route.params.persona;
   const vehiculo = route.params.vehiculo;
-  console.log(route.params);
+
+  const elegirAccion = (valor) => {
+    console.log("valor", valor);
+    setAccion(valor);
+  };
 
   return (
     <View style={{ paddingTop: insets.top + 1 }}>
@@ -54,18 +58,22 @@ export default PaginaTaquillas = ({ route }) => {
       <View style={styles.contenedorOperacion}>
         <TouchableOpacity
           style={styles.botonOperacion}
-          onPress={setAccion("dejar")}
+          onPress={() => {
+            elegirAccion("dejar");
+          }}
         >
           <Text style={styles.textoOperacion}>Dejar Llave</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.botonOperacion}
-          onPress={setAccion("recoger")}
+          onPress={() => {
+            elegirAccion("recoger");
+          }}
         >
           <Text style={styles.textoOperacion}>Recoger Llave</Text>
         </TouchableOpacity>
       </View>
-      {accion && <InstruccionOperacion />}
+      <InstruccionOperacion />
     </View>
   );
 };
