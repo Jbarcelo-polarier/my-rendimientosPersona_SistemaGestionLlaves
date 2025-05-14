@@ -277,12 +277,14 @@ const styles = StyleSheet.create({
   botonOperacion: {
     backgroundColor: colors.primary,
     height: 40,
-    width: "40%",
+    width: "85%",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    paddingHorizontal: "5%",
   },
   textoOperacion: {
     color: colors.white,
+    fontSize: 20,
   },
 });
