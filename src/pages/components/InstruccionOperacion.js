@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { colors } from "../../../styles/base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default InstruccionOperacion = ({ tarjetaInfo }) => {
   console.log("IO tarjetaInfo", tarjetaInfo);
-  var titulo = "";
+  const [titulo, setTitulo] = useState();
   const accion = tarjetaInfo.accion;
-  if (tarjetaInfo.accion == "dejar") titulo = "Dejar Llave";
-  if (tarjetaInfo.accion == "recoger") titulo = "Recoger Llave";
+
+  useEffect(() => {
+    asignarTitulo();
+  }, []);
+
+  const asignarTitulo = () => {
+    if (tarjetaInfo.accion == "dejar") {
+      setTitulo("Porfavor deje la llave");
+    }
+    if (tarjetaInfo.accion == "recoger") {
+      setTitulo("Porfavor recoja la llave");
+    }
+  };
 
   return (
     <View style={styles.contenedor}>
