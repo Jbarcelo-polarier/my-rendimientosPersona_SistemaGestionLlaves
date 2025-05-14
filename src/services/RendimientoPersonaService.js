@@ -9,6 +9,7 @@ export const rendimientoPersonasService = {
   getVehiculoPorMatricula,
   getPersonaPorDNI,
   getCompartimientoVehiculo,
+  getCompartimentosDisponibles,
 };
 
 function getPersonaPorDNI(numIdentificacion) {
@@ -78,6 +79,27 @@ function getCompartimientoVehiculo(idVehiculo) {
         "getCompartimientoVehiculo" +
         "?idVehiculo=" +
         idVehiculo,
+      requestOptions("GET")
+    )
+      .then(handleResponse)
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((ex) => {
+        reject(ex);
+      });
+  });
+}
+
+function getCompartimentosDisponibles() {
+  // console.log(
+  //   connectionConstants.ODATA_URL +
+  //     "getCompartimentosDisponibles",
+  //   requestOptions("GET")
+  // );
+  return new Promise((resolve, reject) => {
+    fetch(
+      connectionConstants.ODATA_URL + "getCompartimentosDisponibles",
       requestOptions("GET")
     )
       .then(handleResponse)
