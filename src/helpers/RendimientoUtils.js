@@ -54,6 +54,20 @@ const RendimientoUtils = {
       );
     }
   },
+
+  actualizarVehiculoCompartimento: async (idVehiculo, idCompartimento) => {
+    console.log("Rendimietno utils actualizarVehiculoCompartimento");
+    try {
+      const datos =
+        await rendimientoPersonasService.actualizarVehiculoCompartimento(
+          idVehiculo,
+          idCompartimento
+        );
+      console.log("actualizarVehiculoCompartimento datos", datos);
+    } catch (error) {
+      console.log("Error al actualizar VehiculoCompartimento", error);
+    }
+  },
 };
 
 export default RendimientoUtils;
