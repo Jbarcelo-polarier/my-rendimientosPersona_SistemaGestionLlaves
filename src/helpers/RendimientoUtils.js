@@ -28,6 +28,18 @@ const RendimientoUtils = {
       console.log("Error al rebir los productos", error);
     }
   },
+
+  getCompartimientoVehiculo: async (idVehiculo) => {
+    console.log("rendimiento utils getCompartimientoVehiculo");
+    try {
+      const datos = await rendimientoPersonasService.getCompartimientoVehiculo(
+        idVehiculo
+      );
+      return datos;
+    } catch (error) {
+      console.log("Error al recibir compartimientoVehiculo", error);
+    }
+  },
 };
 
 export default RendimientoUtils;
