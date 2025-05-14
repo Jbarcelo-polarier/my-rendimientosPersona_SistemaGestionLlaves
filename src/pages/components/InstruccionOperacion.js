@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { colors } from "../../../styles/base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 export default InstruccionOperacion = ({ tarjetaInfo }) => {
   console.log("IO tarjetaInfo", tarjetaInfo);
   var titulo = "";
+  const accion = tarjetaInfo.accion;
   if (tarjetaInfo.accion == "dejar") titulo = "Dejar Llave";
   if (tarjetaInfo.accion == "recoger") titulo = "Recoger Llave";
 
@@ -20,25 +21,26 @@ export default InstruccionOperacion = ({ tarjetaInfo }) => {
             <View style={styles.contenedorImagen}>
               <MaterialCommunityIcons
                 name="truck"
-                size={60}
+                size={70}
                 color={colors.lightBlack}
+              />
+              <Text style={styles.textoTarjeta}>{tarjetaInfo.matricula}</Text>
+            </View>
+            <View style={styles.contenedorImagenCentro}>
+              <MaterialCommunityIcons
+                name={accion === "dejar" ? "arrow-right" : "arrow-left"}
+                size={40}
+                color={accion === "dejar" ? colors.danger : colors.success}
               />
             </View>
             <View style={styles.contenedorImagen}>
               <MaterialCommunityIcons
                 name="safe"
-                size={65}
+                size={70}
                 color={colors.lightBlack}
               />
-            </View>
-          </View>
-          <View style={styles.inferior}>
-            <View style={styles.contenedorTexto}>
-              <Text style={styles.textoTarjeta}>{tarjetaInfo.matricula}</Text>
-            </View>
-            <View style={styles.contenedorTexto}>
               <Text style={styles.textoTarjeta}>
-                {tarjetaInfo.numContenedor}
+                nº {tarjetaInfo.numContenedor}
               </Text>
             </View>
           </View>
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
   },
   tarjetaInfo: {
     backgroundColor: colors.white,
-    height: 150,
+    height: 200,
     width: "80%",
     alignSelf: "center",
     marginTop: "5%",
@@ -80,9 +82,11 @@ const styles = StyleSheet.create({
   },
   cuerpoTarjeta: {
     height: "80%",
+    width: "100%",
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    paddingHorizontal: "2%",
+    paddingHorizontal: "1%",
+    alignSelf: "center",
   },
   textoTarjeta: {
     padding: "2%",
@@ -91,21 +95,25 @@ const styles = StyleSheet.create({
     color: colors.lightBlack,
   },
   superior: {
-    height: "60%",
+    height: "95%",
+    width: "100%",
     padding: "2%",
     flexDirection: "row",
   },
   contenedorImagen: {
-    width: "48%",
+    width: "40%",
     alignItems: "center",
+    justifyContent: "center",
   },
-  inferior: {
-    height: "40%",
-    padding: "2%",
-    flexDirection: "row",
+  contenedorImagenCentro: {
+    width: "20%",
+    height: "75%",
+    alignItems: "center",
+    justifyContent: "center",
   },
+
   contenedorTexto: {
-    width: "48%",
+    width: "45%",
     alignItems: "center",
     justifyContent: "center",
   },
