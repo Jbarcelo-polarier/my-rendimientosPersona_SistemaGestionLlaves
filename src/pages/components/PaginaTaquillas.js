@@ -10,6 +10,7 @@ import RendimientoUtils from "../../helpers/RendimientoUtils";
 export default PaginaTaquillas = ({ route }) => {
   const [accion, setAccion] = useState();
   const [objetoTarjeta, setObjetoTarjeta] = useState();
+  const [renderBoton, setRenderBoton] = useState();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const persona = route.params.persona;
@@ -23,6 +24,20 @@ export default PaginaTaquillas = ({ route }) => {
       recogerLlave();
     }
   }, [accion]);
+
+  useEffect(() => {
+    elegirRenderBoton();
+  }, []);
+
+  const elegirRenderBoton = async () => {
+    console.log("RenderBoton");
+    const compartimiento = await buscarCompartimentoLlave();
+    if (compartimiento.idCompartimento == 0) {
+      setRenderBoton("dejar");
+    } else {
+      setRenderBoton("recoger");
+    }
+  };
 
   //Borrar
   useEffect(() => {
@@ -176,22 +191,26 @@ export default PaginaTaquillas = ({ route }) => {
         </View>
       </View>
       <View style={styles.contenedorOperacion}>
-        <TouchableOpacity
-          style={styles.botonOperacion}
-          onPress={() => {
-            elegirAccion("dejar");
-          }}
-        >
-          <Text style={styles.textoOperacion}>Dejar Llave</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.botonOperacion}
-          onPress={() => {
-            elegirAccion("recoger");
-          }}
-        >
-          <Text style={styles.textoOperacion}>Recoger Llave</Text>
-        </TouchableOpacity>
+        {renderBoton === "dejar" && (
+          <TouchableOpacity
+            style={styles.botonOperacion}
+            onPress={() => {
+              elegirAccion("dejar");
+            }}
+          >
+            <Text style={styles.textoOperacion}>Dejar Llave</Text>
+          </TouchableOpacity>
+        )}
+        {renderBoton === "recoger" && (
+          <TouchableOpacity
+            style={styles.botonOperacion}
+            onPress={() => {
+              elegirAccion("recoger");
+            }}
+          >
+            <Text style={styles.textoOperacion}>Recoger Llave</Text>
+          </TouchableOpacity>
+        )}
       </View>
       {objetoTarjeta && <InstruccionOperacion tarjetaInfo={objetoTarjeta} />}
     </View>
