@@ -79,6 +79,20 @@ const RendimientoUtils = {
       console.log("Error al actualizar estados automaticamente", error);
     }
   },
+
+  crearRegistro: async (idCompartimento, idVehiculo, idPersona) => {
+    console.log("rendimiento utils crearRegistro");
+    try {
+      const datos = await rendimientoPersonasService.crearRegistro(
+        idCompartimento,
+        idVehiculo,
+        idPersona
+      );
+      console.log("crearRegistro datos", datos);
+    } catch (error) {
+      console.log("Error al crear el registro ", error);
+    }
+  },
 };
 
 export default RendimientoUtils;

@@ -12,6 +12,7 @@ export const rendimientoPersonasService = {
   getCompartimentosDisponibles,
   actualizarVehiculoCompartimento,
   actualizarEstadoAutomatico,
+  crearRegistro,
 };
 
 function getPersonaPorDNI(numIdentificacion) {
@@ -122,7 +123,7 @@ function actualizarVehiculoCompartimento(idVehiculo, idCompartimento) {
   //    idVehiculo +
   //    "&idCompartimento=" +
   //    idCompartimento,
-  //   requestOptions("Patch")
+  //   requestOptions("PATCH")
   // );
   return new Promise((resolve, reject) => {
     fetch(
@@ -132,7 +133,7 @@ function actualizarVehiculoCompartimento(idVehiculo, idCompartimento) {
         idVehiculo +
         "&idCompartimento=" +
         idCompartimento,
-      requestOptions("Patch")
+      requestOptions("PATCH")
     )
       .then(handleResponse)
       .then((data) => {
@@ -148,12 +149,45 @@ function actualizarEstadoAutomatico() {
   // console.log(
   //   connectionConstants.ODATA_URL +
   //     "actualizarEstadoAutomatico",
-  //   requestOptions("Patch")
+  //   requestOptions("PATCH")
   // );
   return new Promise((resolve, reject) => {
     fetch(
       connectionConstants.ODATA_URL + "actualizarEstadoAutomatico",
-      requestOptions("Patch")
+      requestOptions("PATCH")
+    )
+      .then(handleResponse)
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((ex) => {
+        reject(ex);
+      });
+  });
+}
+
+function crearRegistro() {
+  // console.log(
+  // connectionConstants.ODATA_URL + "crearRegistro" +
+  // "?idCompartimento=" +
+  // idCompartimento +
+  // "&idVehiculo=" +
+  // idVehiculo +
+  // "&idPersona=" +
+  // idPersona,
+  // requestOptions("POST")
+  // );
+  return new Promise((resolve, reject) => {
+    fetch(
+      connectionConstants.ODATA_URL +
+        "crearRegistro" +
+        "?idCompartimento=" +
+        idCompartimento +
+        "&idVehiculo=" +
+        idVehiculo +
+        "&idPersona=" +
+        idPersona,
+      requestOptions("POST")
     )
       .then(handleResponse)
       .then((data) => {
