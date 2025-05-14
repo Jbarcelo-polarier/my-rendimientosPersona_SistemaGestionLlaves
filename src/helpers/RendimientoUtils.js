@@ -94,6 +94,18 @@ const RendimientoUtils = {
       console.log("Error al crear el registro ", error);
     }
   },
+
+  getNumCompartimento: async (idCompartimento) => {
+    console.log("rendimiento utils getNumCompartimento");
+    try {
+      const datos = await rendimientoPersonasService.getNumCompartimento(
+        idCompartimento
+      );
+      return datos;
+    } catch (error) {
+      console.log("Error al obtener el numer de compartimento", error);
+    }
+  },
 };
 
 export default RendimientoUtils;

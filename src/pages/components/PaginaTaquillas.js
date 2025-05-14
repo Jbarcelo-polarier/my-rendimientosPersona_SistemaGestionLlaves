@@ -5,9 +5,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import InstruccionOperacion from "./InstruccionOperacion";
+import RendimientoUtils from "../../helpers/RendimientoUtils";
 
 export default PaginaTaquillas = ({ route }) => {
   const [accion, setAccion] = useState();
+  const [objetoTarjeta, setObjetoTarjera] = useState();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const persona = route.params.persona;
@@ -15,8 +17,10 @@ export default PaginaTaquillas = ({ route }) => {
 
   useEffect(() => {
     if (accion === "dejar") {
+      dejarLlave();
     }
     if (accion === "recoger") {
+      recogerLlave();
     }
   }, [accion]);
 
@@ -25,6 +29,84 @@ export default PaginaTaquillas = ({ route }) => {
       console.log("valor", valor);
       setAccion(valor);
     }
+  };
+  const recogerLlave = async () => {
+    const idAccion = 2;
+
+    // Buscar la llave
+    const compartimiento = await buscarCompartimentoLlave();
+    console.log("numCompartimento", compartimiento);
+
+    // Actualizar compartimiento del vehiculo
+    await actualizarVehiculoCompartimento(null);
+
+    // Crear Registros
+    await crearRegistros(idAccion, 0); //idCompartimento = 0 le da valor null
+
+    // Crear objeto con informacion para la tajeta
+    const tarjeta = {
+      accion: "recoger",
+      matricula: vehiculo.matricula,
+      numContenedor: compartimiento,
+    };
+  };
+
+  const crearRegistros = async (idAccion, idCompartimento) => {
+    console.log(idCompartimento);
+    await RendimientoUtils.crearRegistro(
+      idCompartimento,
+      vehiculo.idVehiculo,
+      persona.idPersona,
+      idAccion
+    );
+    console.log("Registro creado");
+  };
+
+  const actualizarVehiculoCompartimento = async (idCompartimento) => {
+    await RendimientoUtils.actualizarVehiculoCompartimento(
+      vehiculo.idVehiculo,
+      idCompartimento
+    );
+    console.log("compartimiento actualizado");
+  };
+
+  const buscarCompartimentoLlave = async () => {
+    const data = await RendimientoUtils.getCompartimientoVehiculo(
+      vehiculo.idVehiculo
+    );
+    return data;
+  };
+
+  const dejarLlave = async () => {
+    const idAccion = 1;
+    console.log("idVehiculo", vehiculo.idVehiculo);
+    // Comprobar si la llave ya esta en una taquilla
+    const compartimento = await buscarCompartimentoLlave();
+    console.log(compartimento.idCompartimento);
+    if (compartimento.idCompartimento != 0) {
+      //devuelve 0 cuando no existe
+      console.log("La llave ya esta en un compartimento");
+      return;
+    }
+
+    // Listar los compartimientos disponibles
+    const compartimentosDisponibles =
+      await RendimientoUtils.getCompartimentosDisponibles();
+    if (compartimentosDisponibles.length <= 0) {
+      console.log("no hay compartimenros disponibles");
+      return;
+    }
+
+    // Actualizar compartimiento del vehiculo
+    await actualizarVehiculoCompartimento(
+      (compartimentosDisponibles?.[0]).idCompartimento
+    );
+
+    // Crear registro
+    await crearRegistros(
+      idAccion,
+      (compartimentosDisponibles?.[0]).idCompartimento
+    );
   };
 
   return (

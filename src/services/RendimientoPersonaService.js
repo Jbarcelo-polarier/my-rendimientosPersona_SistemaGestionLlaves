@@ -13,6 +13,7 @@ export const rendimientoPersonasService = {
   actualizarVehiculoCompartimento,
   actualizarEstadoAutomatico,
   crearRegistro,
+  getNumCompartimento,
 };
 
 function getPersonaPorDNI(numIdentificacion) {
@@ -79,7 +80,7 @@ function getCompartimientoVehiculo(idVehiculo) {
   return new Promise((resolve, reject) => {
     fetch(
       connectionConstants.ODATA_URL +
-        "getCompartimientoVehiculo" +
+        "getCompartimentoVehiculo" +
         "?idVehiculo=" +
         idVehiculo,
       requestOptions("GET")
@@ -190,6 +191,27 @@ function crearRegistro(idCompartimento, idVehiculo, idPersona, idAccion) {
         "&idAccion=" +
         idAccion,
       requestOptions("POST")
+    )
+      .then(handleResponse)
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((ex) => {
+        reject(ex);
+      });
+  });
+}
+
+function getNumCompartimento(idCompartimento) {
+  // connectionConstants.ODATA_URL + "getNumCompartimento" +
+  // "?idCompartimento=" + idCompartimento, requestOptions("GET");
+  return new Promise((resolve, reject) => {
+    fetch(
+      connectionConstants.ODATA_URL +
+        "getNumCompartimento" +
+        "?idCompartimento=" +
+        idCompartimento,
+      requestOptions("GET")
     )
       .then(handleResponse)
       .then((data) => {
