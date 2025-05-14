@@ -80,13 +80,14 @@ const RendimientoUtils = {
     }
   },
 
-  crearRegistro: async (idCompartimento, idVehiculo, idPersona) => {
+  crearRegistro: async (idCompartimento, idVehiculo, idPersona, idAccion) => {
     console.log("rendimiento utils crearRegistro");
     try {
       const datos = await rendimientoPersonasService.crearRegistro(
         idCompartimento,
         idVehiculo,
-        idPersona
+        idPersona,
+        idAccion
       );
       console.log("crearRegistro datos", datos);
     } catch (error) {

@@ -166,7 +166,7 @@ function actualizarEstadoAutomatico() {
   });
 }
 
-function crearRegistro() {
+function crearRegistro(idCompartimento, idVehiculo, idPersona, idAccion) {
   // console.log(
   // connectionConstants.ODATA_URL + "crearRegistro" +
   // "?idCompartimento=" +
@@ -186,7 +186,9 @@ function crearRegistro() {
         "&idVehiculo=" +
         idVehiculo +
         "&idPersona=" +
-        idPersona,
+        idPersona +
+        "&idAccion=" +
+        idAccion,
       requestOptions("POST")
     )
       .then(handleResponse)
