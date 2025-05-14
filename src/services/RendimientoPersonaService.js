@@ -11,6 +11,7 @@ export const rendimientoPersonasService = {
   getCompartimientoVehiculo,
   getCompartimentosDisponibles,
   actualizarVehiculoCompartimento,
+  actualizarEstadoAutomatico,
 };
 
 function getPersonaPorDNI(numIdentificacion) {
@@ -131,6 +132,27 @@ function actualizarVehiculoCompartimento(idVehiculo, idCompartimento) {
         idVehiculo +
         "&idCompartimento=" +
         idCompartimento,
+      requestOptions("Patch")
+    )
+      .then(handleResponse)
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((ex) => {
+        reject(ex);
+      });
+  });
+}
+
+function actualizarEstadoAutomatico() {
+  // console.log(
+  //   connectionConstants.ODATA_URL +
+  //     "actualizarEstadoAutomatico",
+  //   requestOptions("Patch")
+  // );
+  return new Promise((resolve, reject) => {
+    fetch(
+      connectionConstants.ODATA_URL + "actualizarEstadoAutomatico",
       requestOptions("Patch")
     )
       .then(handleResponse)

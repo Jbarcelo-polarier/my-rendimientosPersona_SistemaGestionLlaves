@@ -68,6 +68,17 @@ const RendimientoUtils = {
       console.log("Error al actualizar VehiculoCompartimento", error);
     }
   },
+
+  actualizarEstadoAutomatico: async () => {
+    console.log("rendimiento utils actualizarEstadoAutomatico");
+    try {
+      const datos =
+        await rendimientoPersonasService.actualizarEstadoAutomatico();
+      console.log("actualizarEstadoAutomatico datos", datos);
+    } catch (error) {
+      console.log("Error al actualizar estados automaticamente", error);
+    }
+  },
 };
 
 export default RendimientoUtils;
