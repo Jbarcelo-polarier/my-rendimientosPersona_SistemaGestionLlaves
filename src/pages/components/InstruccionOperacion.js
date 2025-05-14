@@ -2,12 +2,17 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { colors } from "../../../styles/base";
 
-export default InstruccionOperacion = () => {
+export default InstruccionOperacion = ({ tarjetaInfo }) => {
+  console.log("IO tarjetaInfo", tarjetaInfo);
+  var titulo = "";
+  if (tarjetaInfo.accion == "dejar") titulo = "Dejar Llave";
+  if (tarjetaInfo.accion == "recoger") titulo = "Recoger Llave";
+
   return (
     <View style={styles.contenedor}>
       <View style={styles.tarjetaInfo}>
         <View style={styles.cabeceraTarjeta}>
-          <Text style={styles.tituloTarjeta}>Dejar LLave</Text>
+          <Text style={styles.tituloTarjeta}>{titulo}</Text>
         </View>
         <View style={styles.cuerpoTarjeta}>
           <Text style={styles.textoTarjeta}>Matricula vehiculo</Text>

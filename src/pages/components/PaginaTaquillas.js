@@ -9,7 +9,7 @@ import RendimientoUtils from "../../helpers/RendimientoUtils";
 
 export default PaginaTaquillas = ({ route }) => {
   const [accion, setAccion] = useState();
-  const [objetoTarjeta, setObjetoTarjera] = useState();
+  const [objetoTarjeta, setObjetoTarjeta] = useState();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const persona = route.params.persona;
@@ -24,6 +24,11 @@ export default PaginaTaquillas = ({ route }) => {
     }
   }, [accion]);
 
+  //Borrar
+  useEffect(() => {
+    console.log("Tarjeta creada");
+  }, [objetoTarjeta]);
+
   const elegirAccion = (valor) => {
     if (!accion) {
       console.log("valor", valor);
@@ -36,6 +41,10 @@ export default PaginaTaquillas = ({ route }) => {
     // Buscar la llave
     const compartimiento = await buscarCompartimentoLlave();
     console.log("numCompartimento", compartimiento);
+    if (compartimiento.idCompartimento == 0) {
+      console.log("La llave no esta en la taquilla");
+      return;
+    }
 
     // Actualizar compartimiento del vehiculo
     await actualizarVehiculoCompartimento(null);
@@ -43,12 +52,19 @@ export default PaginaTaquillas = ({ route }) => {
     // Crear Registros
     await crearRegistros(idAccion, 0); //idCompartimento = 0 le da valor null
 
+    // Otener numero compartimiento
+    const numCompartimento = await obtenerNumeroCompartimiento(
+      compartimiento.idCompartimento
+    );
+
     // Crear objeto con informacion para la tajeta
     const tarjeta = {
       accion: "recoger",
       matricula: vehiculo.matricula,
-      numContenedor: compartimiento,
+      numContenedor: numCompartimento.numCompartimento,
     };
+
+    setObjetoTarjeta(tarjeta);
   };
 
   const crearRegistros = async (idAccion, idCompartimento) => {
@@ -77,6 +93,11 @@ export default PaginaTaquillas = ({ route }) => {
     return data;
   };
 
+  const obtenerNumeroCompartimiento = async (idCompartimento) => {
+    const data = await RendimientoUtils.getNumCompartimento(idCompartimento);
+    return data;
+  };
+
   const dejarLlave = async () => {
     const idAccion = 1;
     console.log("idVehiculo", vehiculo.idVehiculo);
@@ -97,16 +118,24 @@ export default PaginaTaquillas = ({ route }) => {
       return;
     }
 
+    const idCompartimento = (compartimentosDisponibles?.[0]).idCompartimento;
     // Actualizar compartimiento del vehiculo
-    await actualizarVehiculoCompartimento(
-      (compartimentosDisponibles?.[0]).idCompartimento
-    );
+    await actualizarVehiculoCompartimento(idCompartimento);
 
     // Crear registro
-    await crearRegistros(
-      idAccion,
-      (compartimentosDisponibles?.[0]).idCompartimento
-    );
+    await crearRegistros(idAccion, idCompartimento);
+
+    // Otener numero compartimiento
+    const numCompartimento = await obtenerNumeroCompartimiento(idCompartimento);
+
+    // Crear objeto con la info de la tajeta
+    const tarjeta = {
+      accion: "dejar",
+      matricula: vehiculo.matricula,
+      numContenedor: numCompartimento.numCompartimento,
+    };
+
+    setObjetoTarjeta(tarjeta);
   };
 
   return (
@@ -164,7 +193,7 @@ export default PaginaTaquillas = ({ route }) => {
           <Text style={styles.textoOperacion}>Recoger Llave</Text>
         </TouchableOpacity>
       </View>
-      {(accion == "dejar" || accion == "recoger") && <InstruccionOperacion />}
+      {objetoTarjeta && <InstruccionOperacion tarjetaInfo={objetoTarjeta} />}
     </View>
   );
 };
