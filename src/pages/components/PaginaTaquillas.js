@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
   botonOperacion: {
     backgroundColor: colors.primary,
     height: 40,
-    width: "85%",
+    width: "80%",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,

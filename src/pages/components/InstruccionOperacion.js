@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     height: 200,
     width: "100%",
     alignSelf: "center",
-    marginTop: "5%",
+    marginTop: "1%",
   },
   tarjetaInfo: {
     backgroundColor: colors.white,
