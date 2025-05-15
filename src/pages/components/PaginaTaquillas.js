@@ -72,6 +72,9 @@ export default PaginaTaquillas = ({ route }) => {
       compartimiento.idCompartimento
     );
 
+    // Actualizar estados
+    actualizarEstados();
+
     // Crear objeto con informacion para la tajeta
     const tarjeta = {
       accion: "recoger",
@@ -91,6 +94,11 @@ export default PaginaTaquillas = ({ route }) => {
       idAccion
     );
     console.log("Registro creado");
+  };
+
+  const actualizarEstados = async () => {
+    await RendimientoUtils.actualizarEstadoAutomatico();
+    console.log("Estados actualizados");
   };
 
   const actualizarVehiculoCompartimento = async (idCompartimento) => {
@@ -142,6 +150,9 @@ export default PaginaTaquillas = ({ route }) => {
 
     // Otener numero compartimiento
     const numCompartimento = await obtenerNumeroCompartimiento(idCompartimento);
+
+    // Actualizar estados
+    actualizarEstados();
 
     // Crear objeto con la info de la tajeta
     const tarjeta = {

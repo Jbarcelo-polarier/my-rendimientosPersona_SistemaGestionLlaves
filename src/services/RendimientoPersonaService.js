@@ -14,6 +14,7 @@ export const rendimientoPersonasService = {
   actualizarEstadoAutomatico,
   crearRegistro,
   getNumCompartimento,
+  actualizarEstadoAutomatico,
 };
 
 function getPersonaPorDNI(numIdentificacion) {
@@ -221,4 +222,22 @@ function getNumCompartimento(idCompartimento) {
         reject(ex);
       });
   });
+
+  function actualizarEstadoAutomatico() {
+    connectionConstants.ODATA_URL + "actualizarEstadoAutomatico",
+      requestOptions("PATCH");
+    return new Promise((resolve, reject) => {
+      fetch(
+        connectionConstants.ODATA_URL + "actualizarEstadoAutomatico",
+        requestOptions("PATCH")
+      )
+        .then(handleResponse)
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((ex) => {
+          reject(ex);
+        });
+    });
+  }
 }

@@ -106,6 +106,16 @@ const RendimientoUtils = {
       console.log("Error al obtener el numer de compartimento", error);
     }
   },
+
+  actualizarEstadoAutomatico: async () => {
+    console.log("rendimiento utils actualizarEstadoAutomatico");
+    try {
+      const datos =
+        await rendimientoPersonasService.actualizarEstadoAutomatico();
+    } catch (error) {
+      console.log("Error al actualizar los estados", error);
+    }
+  },
 };
 
 export default RendimientoUtils;
