@@ -84,6 +84,7 @@ export default PaginaTaquillas = ({ route }) => {
     };
 
     setObjetoTarjeta(tarjeta);
+    r;
   };
 
   const crearRegistros = async (idAccion, idCompartimento) => {
@@ -119,7 +120,8 @@ export default PaginaTaquillas = ({ route }) => {
     const data = await RendimientoUtils.getCompartimientoVehiculo(
       vehiculo.idVehiculo
     );
-    setIdTaquilla(data.idTaquilla);
+    console.log("idTaquilla", data.idTaquilla);
+    setIdTaquilla(data.idTaquilla || 1);
     console.log("compartimento", data);
     return data;
   };
@@ -154,6 +156,7 @@ export default PaginaTaquillas = ({ route }) => {
     await actualizarVehiculoCompartimento(idCompartimento);
 
     // Crear registro
+
     await crearRegistros(idAccion, idCompartimento);
 
     // Otener numero compartimiento
