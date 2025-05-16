@@ -168,29 +168,47 @@ function actualizarEstadoAutomatico() {
   });
 }
 
-function crearRegistro(idCompartimento, idVehiculo, idPersona, idAccion) {
-  // console.log(
-  // connectionConstants.ODATA_URL + "crearRegistro" +
-  // "?idCompartimento=" +
-  // idCompartimento +
-  // "&idVehiculo=" +
-  // idVehiculo +
-  // "&idPersona=" +
-  // idPersona,
-  // requestOptions("POST")
-  // );
+function crearRegistro(
+  idVehiculo,
+  idPersona,
+  idAccion,
+  idTaquilla,
+  idCompAnt,
+  idCompAct
+) {
+  console.log(
+    connectionConstants.ODATA_URL +
+      "crearRegistro" +
+      "?idVehiculo=" +
+      idVehiculo +
+      "&idPersona=" +
+      idPersona +
+      "&idAccion=" +
+      idAccion +
+      "&idTaquilla=" +
+      idTaquilla +
+      "&idCompAnt=" +
+      idCompAnt +
+      "&idCompAct=" +
+      idCompAct,
+    requestOptions("POST")
+  );
   return new Promise((resolve, reject) => {
     fetch(
       connectionConstants.ODATA_URL +
         "crearRegistro" +
-        "?idCompartimento=" +
-        idCompartimento +
-        "&idVehiculo=" +
+        "?idVehiculo=" +
         idVehiculo +
         "&idPersona=" +
         idPersona +
         "&idAccion=" +
-        idAccion,
+        idAccion +
+        "&idTaquilla=" +
+        idTaquilla +
+        "&idCompAnt=" +
+        idCompAnt +
+        "&idCompAct=" +
+        idCompAct,
       requestOptions("POST")
     )
       .then(handleResponse)

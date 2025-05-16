@@ -15,6 +15,7 @@ export default PaginaTaquillas = ({ route }) => {
   const navigation = useNavigation();
   const persona = route.params.persona;
   const vehiculo = route.params.vehiculo;
+  const idTaquilla = 1;
 
   useEffect(() => {
     if (accion === "dejar") {
@@ -87,11 +88,16 @@ export default PaginaTaquillas = ({ route }) => {
 
   const crearRegistros = async (idAccion, idCompartimento) => {
     console.log(idCompartimento);
+    const idCompAct = idCompartimento;
+    const idCompAnt = 1;
+
     await RendimientoUtils.crearRegistro(
-      idCompartimento,
       vehiculo.idVehiculo,
       persona.idPersona,
-      idAccion
+      idAccion,
+      idTaquilla,
+      idCompAnt,
+      idCompAct
     );
     console.log("Registro creado");
   };
