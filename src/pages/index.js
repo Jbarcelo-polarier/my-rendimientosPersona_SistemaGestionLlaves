@@ -9,9 +9,6 @@ const index = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
 
-  const openRendimiento = () => {
-    navigation.navigate("Rendimiento");
-  };
 
   return (
     <View style={{ paddingTop: insets.top + 1 }}>

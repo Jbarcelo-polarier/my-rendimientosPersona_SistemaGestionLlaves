@@ -11,11 +11,11 @@ export default PaginaTaquillas = ({ route }) => {
   const [accion, setAccion] = useState();
   const [objetoTarjeta, setObjetoTarjeta] = useState();
   const [renderBoton, setRenderBoton] = useState();
+  const [idTaquilla, setIdTaquilla] = useState();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const persona = route.params.persona;
   const vehiculo = route.params.vehiculo;
-  const idTaquilla = 1;
 
   useEffect(() => {
     if (accion === "dejar") {
@@ -119,6 +119,8 @@ export default PaginaTaquillas = ({ route }) => {
     const data = await RendimientoUtils.getCompartimientoVehiculo(
       vehiculo.idVehiculo
     );
+    setIdTaquilla(data.idTaquilla);
+    console.log("compartimento", data);
     return data;
   };
 
